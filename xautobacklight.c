@@ -85,6 +85,15 @@ adjustgamma(Display *dpy, Window root, double cutoff)
 	}
 }
 
+__dead void
+usage(void)
+{
+        extern char     *__progname;
+
+        fprintf(stderr, "usage: %s [-s <percentage>]\n", __progname);
+        exit(1);
+}
+
 int
 main(int argc, char **argv)
 {
@@ -95,6 +104,26 @@ main(int argc, char **argv)
 	int dim = 0;
 	int olddim = -1;
 	double brightness;
+        int lowbrightness = 20;
+        int highbrightness;
+        int c;
+
+
+        while ((c = getopt(argc, argv, "s:")) != -1) {
+                switch(c) {
+                        case 's':
+                                lowbrightness = atoi(optarg);
+                                break;
+                        default:
+                                usage();
+                }
+        }
+
+        if (lowbrightness <= 0) {
+                fprintf(stderr, "brightness must be strictly positive\n");
+                exit(2);
+        }
+        highbrightness = 2 * lowbrightness;
 
 	XSelectInput(dpy, root, FocusChangeMask);
 
