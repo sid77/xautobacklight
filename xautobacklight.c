@@ -156,7 +156,7 @@ main(int argc, char **argv)
 			dim = 0;
 
 		if (dim != olddim) {
-			setbrightness(dim ? 20 : 40);
+			setbrightness(dim ? lowbrightness : highbrightness);
 
 			/* adjustgamma(dpy, root, dim ? 0.5 : 1.0); */
 		}
