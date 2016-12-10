@@ -115,6 +115,10 @@ usage(void)
 int
 main(int argc, char **argv)
 {
+        if (pledge("dns exec proc rpath stdio unix", NULL) == -1) {
+                err(1, "pledge");
+        }
+
 	Display *dpy = XOpenDisplay(NULL);
 	int screen = DefaultScreen(dpy);
 	Window root = RootWindow(dpy, screen);
