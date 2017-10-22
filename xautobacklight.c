@@ -151,9 +151,13 @@ main(int argc, char **argv)
 
         if (lowbrightness <= 0) {
                 fprintf(stderr, "brightness must be strictly positive\n");
-                exit(2);
+                exit(1);
         }
         highbrightness = 2 * lowbrightness;
+        if (highbrightness > 100) {
+                fprintf(stderr, "capping high brightness threshold to 100\n");
+                highbrightness = 100;
+        }
 
 	XSelectInput(dpy, root, FocusChangeMask);
 
