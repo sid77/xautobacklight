@@ -1,4 +1,4 @@
-CC = gcc
+CC = clang
 CFLAGS = -std=c99 -O2 -I /usr/X11R6/include -L /usr/X11R6/lib -lX11 -lXrandr
 PREFIX = /usr/local
 
