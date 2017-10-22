@@ -8,7 +8,7 @@ xautobacklight:
 	$(CC) $(CFLAGS) -o xautobacklight xautobacklight.c
 
 clean:
-	rm -f xautobacklight
+	rm -f xautobacklight xautobacklight.core
 
 install: xautobacklight
 	install -d $(DESTDIR)/$(PREFIX)/bin
