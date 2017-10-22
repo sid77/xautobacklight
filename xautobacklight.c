@@ -38,14 +38,18 @@ setbrightness(int percent)
 
         switch(pid = fork()) {
                 case -1:
-                        warn("cannot fork");
-                        exit -1;
+                        err(1, "cannot fork");
                 case 0:
+                        if (pledge("exec", NULL) == -1) {
+                                err(1, "pledge");
+                        }
                         execvp("xbacklight", argv);
                         break;
                 default:
                         return(pid);
         }
+
+        return(0);
 }
 
 double
@@ -131,6 +135,9 @@ main(int argc, char **argv)
         int highbrightness;
         int c;
 
+        if (pledge("exec stdio proc", NULL) == -1) {
+                err(1, "pledge");
+        }
 
         while ((c = getopt(argc, argv, "s:")) != -1) {
                 switch(c) {
