@@ -29,7 +29,7 @@ pid_t
 setbrightness(int percent)
 {
         char *argv[] = { "xbacklight", "-set", NULL, NULL };
-        static int percent_s_size = 3;
+        static int percent_s_size = 4;
         char percent_s[percent_s_size];
         pid_t pid;
 
