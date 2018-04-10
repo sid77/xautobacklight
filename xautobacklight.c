@@ -39,6 +39,7 @@ setbrightness(int percent)
         switch(pid = fork()) {
                 case -1:
                         err(1, "cannot fork");
+                        break;
                 case 0:
                         if (pledge("exec", NULL) == -1) {
                                 err(1, "pledge");
