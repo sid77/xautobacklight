@@ -25,12 +25,15 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#include <sys/wait.h>
+
 pid_t
 setbrightness(int percent)
 {
         char *argv[] = { "xbacklight", "-set", NULL, NULL };
         static int percent_s_size = 4;
         char percent_s[percent_s_size];
+        int status;
         pid_t pid;
 
         snprintf(percent_s, percent_s_size, "%d", percent);
@@ -47,6 +50,7 @@ setbrightness(int percent)
                         execvp("xbacklight", argv);
                         break;
                 default:
+                        waitpid(pid, &status, 0);
                         return(pid);
         }
 
